@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  trace-collector:
+    build: ./services/trace-collector
+    container_name: trace-collector
+    ports:
+      - "8000:8000"
+
+  service-auth:
+    build: ./services/service-auth
+    container_name: service-auth
+    environment:
+      - TRACE_COLLECTOR_URL=http://trace-collector:8000
+      - PAYMENTS_URL=http://service-payments:8000
+    ports:
+      - "8001:8000"
+    depends_on:
+      - trace-collector
+      - service-payments
+
+  service-payments:
+    build: ./services/service-payments
+    container_name: service-payments
+    environment:
+      - TRACE_COLLECTOR_URL=http://trace-collector:8000
+      - RECS_URL=http://service-recommendations:8000
+    ports:
+      - "8002:8000"
+    depends_on:
+      - trace-collector
+      - service-recommendations
+
+  service-recommendations:
+    build: ./services/service-recommendations
+    container_name: service-recommendations
+    environment:
+      - TRACE_COLLECTOR_URL=http://trace-collector:8000
+    ports:
+      - "8003:8000"
+    depends_on:
+      - trace-collector
