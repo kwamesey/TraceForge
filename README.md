@@ -7,7 +7,7 @@ Instead of one API, this project spins up multiple **FastAPI microservices** (au
 ---
 
 ## 💡 Why I Built It
-I wanted to design something that looked like what real backend teams use — where multiple services pass requests, forward trace IDs, and report metrics to a central dashboard.
+I wanted to design something that looked like what real backend teams use, where multiple services pass requests, forward trace IDs, and report metrics to a central dashboard.
 
 TraceForge was built to show off:
 - **Service-to-service communication**
